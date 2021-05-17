@@ -1,0 +1,14 @@
+1.Stellenangebot
+
+
+fachlicher_ansprechsparner ::=
+      string +*Name*
+      string +*Funktion*
+      string +*Email*
+
+beschäftigungsumfang ::=
+[ number*Prozent* |
+  number*Stunden*
+
+]
+     

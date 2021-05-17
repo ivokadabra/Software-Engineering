@@ -1,0 +1,110 @@
+ELF:
+1.Bewerbungen:DET=17(niedrig)
+
+RET:2
+
+Datum der Bewerbung::=date
+Identifikationsnummer::=number
+Initiativbewerbung::boolean
+Name::=string;
+Vorname::=string;
+Wohnort::=string;
+Kontaktdaten::=string;
+aktuelle Tätigkeit::=Standort+OE+Arbeitsfeld
+Standort::=string;
+OE::=string;
+Arbeitsfeld::=string;
+Anschreiben::=string;
+Lebenslauf::=string;
+Zeugnisse / Abschlüsse::=string;
+spezielle Qualifikationen::=string;
+
+2.Stellengesuche:DET=27(mittel)
+
+RET:4
+
+Identifikationsnummer::=number; 
+Personalnummer::=number;
+Befristung::=date
+Datum::=date
+Name::=string;
+Vorname::=string;
+Wohnort::=string;
+Kontaktdaten::=string;
+aktuelle Tätigkeit::=Standort+OE+Arbeitsfeld+Beschäftigungsumfang (Prozent oder Stunden)+tarifliche Vergütung ja/nein + befristete Beschäftigung (Kalenderdatum von/bis)
+gewünschte Tätigkeit::=Standort+OE+Arbeitsfeld+Beschäftigungsumfang (Prozent oder Stunden)+tarifliche Vergütung ja/nein+Beginn der Tätigkeit +Besondere Stellenwünsche (*)
+Standort::=string;
+OE::=string;
+Arbeitsfeld::=string;
+Beschäftigungsumfang::=number;
+tarifliche Vergütung::=boolean;
+befristete Beschäftigung::=date;
+Abschlüsse::=string;
+spezielle Qualifikationen::=string;
+
+ILF:
+
+Stellenangebote:DET=17(niedrig)
+RET:2
+
+
+Standort/OE ::= string;
+Identfikationsnummer ::= number;
+Arbeitsfeld ::= Funktion / Stellenbeschreibung + Führungsaufgabe;
+Funktion / Stellenbeschreibung::=string;
+Führungsaufgabe::=boolean;
+Fachlicher Ansprechpartner OE ::= Name + Funktion + EMail-Adresse;
+Name::=string
+Funktion::=string
+EMail-Adresse::=string
+Erforderliche Abschlüsse ::= string;
+Erforderliche besondere Qualifikationen::=string
+Beschäftigungsumfang::=number
+tarifliche Vergütung::=boolean
+befristete Beschäftigung ::=von + bis
+von::=date
+bis::=date
+Stellenbesetzung::=date
+Ablauf Bewerbungsfrist::=date 
+
+
+EI:
+1.Gesuche eingeben:Stellengesuche(ELF),DET:22,mittel
+2.Bewerbung Eingeben:Bewerbung (ELF),DET: 14,niedrig
+3.Bestätigung/Ablenhung: Bewerbung(ELF), DET:1,niedrig
+4.Stellen Angebot eingeben:Stellenangebot(ILF), DET:15,niedrig
+
+
+
+EO:
+1.Bestätigung/Ablehnung:Bewerbung (ELF),DET: 1,niedrig
+2.Bestätigung/Ablehnung:Stellengesuche (ELF),DET: 1,niedrig
+3.Bewerbung übergeben: Bewerbung(ELF),DET:14,niedrig
+4.Bewerbungen recherchieren:Bewerbung(ELF),DET:1,niedrig
+5.Statistiken zu Stellenangeboten und Stellengesuchen erzeugen:Stellengesuche (ELF),Stellenangebot(ILF), DET:2,niedrig
+6.Stellengesuche recherchieren: Stellengesuche(ELF),DET:22,mittel
+7.Stellenangebote recherchieren: Stellenangebot(ILF), DET:15,niedrig
+
+
+Kosten,Mitarbeiter,Bearbeitungszeitraum:
+1.Bearbeitungszeitraum:
+Wasserfallmodell:
+
+Anforderung:1 Monate
+Entwurf:5 Monate
+Implementation:4 Monate
+Überprüfung: 6 Monate
+Wartung: 2 Monate
+
+2.Kosten
+Kosten=Anazahl der OE  * 3 Techniker jeder mit Gehalt von 5000 Euro.
+
+Erstellung der Application:40 000 - 100 000 Euro.
+Der Grund dafür ist die Größe des Unternehmens, die in verschiedenen
+Standorten verteilt ist.Außerdem existieren zahlreiche OE pro Standort, was zur größere Datenbanken und langsame bearbeitung der Information führt.
+Die Komplexität der Funktionalität der Stellenbörße kann man als niedrig Bezeichnet.Deswegen ist der obere Grenzung für den Budget 100 000 Euro.
+Die meisten Kosten werden für die Erstellung der Ablauf Beziehung zwischen DBS,ZPM und OE in der verschiedenenen Standorten, was zur aufwendige Bearbeitung der Datenbanken führt.   
+
+Gemeinsame Kosten:120 000 - 200 000
+
+

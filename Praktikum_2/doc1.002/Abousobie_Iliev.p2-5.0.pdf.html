@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <title>Software Engineering SS 2021</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+  /* hdoc_pdf.css */
+
+  @page {
+     size: A4 portrait;
+     margin-top: 2.5cm;
+     margin-left: 1.5cm;
+     margin-right: 1.5cm;
+     margin-bottom: 2cm;
+     padding: 0cm;
+
+    @top-left {
+      content: flow(tl-content-flow);
+      vertical-align: bottom;
+      margin-bottom: 0.5cm;
+      padding-bottom:0.1cm;
+      font-family: "Roboto Condensed", sans-serif;
+      border-bottom:1px solid gray;
+    }
+
+    @top-center {
+      content: flow(tm-content-flow);
+      vertical-align: bottom;
+      margin-bottom: 0.5cm;
+      padding-bottom:0.1cm;
+      font-family: "Roboto Condensed", sans-serif;
+      border-bottom:1px solid gray;
+    }
+
+    @top-right {
+      content: flow(tr-content-flow);
+      font-size:8pt; /*1em;*/
+      text-align:right;
+      vertical-align: bottom;
+      margin-bottom: 0.5cm;
+      padding-bottom:0.1cm;
+      font-family: "Roboto Condensed", sans-serif;
+      border-bottom:1px solid gray;
+    }
+
+    @bottom-center {
+      font-size:8pt; /*1em;*/
+      text-align:center;
+      vertical-align: top;
+      margin-top: 0.5cm;
+      padding-top:0.1cm;
+      font-family: "Roboto Condensed", sans-serif;
+    }
+  }
+  .tl-content {
+      flow: static(tl-content-flow);
+      width:5cm;
+      font-size:8pt; /*1em;*/
+      text-align:left;
+  }
+
+  .tm-content {
+      flow: static(tm-content-flow);
+      width:8cm;
+      font-size:10pt;
+      text-align:center;
+  }
+
+  .tr-content {
+     /*display: none;*/
+     flow: static(tr-content-flow);
+     width:5cm;
+     font-size:8pt; /*1em;*/
+     text-align:right;
+  }
+
+  .tr-page {
+     content: "Seite " counter(page) " von " counter(pages);
+  }
+  body {
+     font-family: "Roboto", "Roboto Condensed", sans-serif;
+     font-size:10pt; /*1em;*/
+  }
+
+  code {
+     font-family: "LettrGoth12 BT", monospace;
+     font-size:1em;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+     font-family: "Roboto Condensed", sans-serif;
+     page-break-after: avoid;
+  }
+
+  h1 {
+     page-break-before: auto;
+  }
+
+  h1.clDocPartHeader {
+     padding-bottom: 5px;
+     border-bottom: 2px solid;
+  }
+
+  h1.clDocPartHeader {
+     page-break-before: always;
+  }
+
+  h1.clDocPartHeader:first-of-type {
+     page-break-before: avoid;
+  }
+
+  h1.clDocPartHeader + h1 {
+     page-break-before: avoid;
+  }
+
+  figure {
+     margin-left: auto;
+     margin-right: auto;
+     text-align: center;
+  }
+
+  figure img {
+     width: 15cm;
+  }
+
+  table {
+     border: 1px solid #AAAAAA;
+     border-collapse: collapse;
+     caption-side: bottom;
+     margin-left: auto;
+     margin-right: auto;
+  }
+
+  caption {
+     margin-top: 0.1cm;
+  }
+
+  th, td {
+     padding: 0.2cm;
+     border: 1px solid #AAAAAA;
+  }
+
+  p {
+     text-align: justify;
+     -moz-hyphens: auto;
+     -o-hyphens: auto;
+     -webkit-hyphens: auto;
+     -ms-hyphens: auto;
+     hyphens: auto;    
+     hyphenate-limit-chars: auto 3;
+     hyphenate-limit-lines: 2;    
+     prince-hyphenate-before: 3;
+     prince-hyphenate-after: 3;
+     prince-hyphenate-lines: 2;    
+  }
+
+  p + ul {
+    margin-top: -10px;
+  }
+
+  td.lineNumbers {
+    width: 5%;
+  }
+
+  ul {
+     margin-left: 0;
+     padding-left: 1.5em;
+  }
+
+  ol {
+     margin-left: 0;
+     padding-left: 2em;
+  }
+
+  blockquote {
+     margin-left: 0;
+     padding-left: 1.5em;
+  }
+
+  /* EOF */
+  </style>
+  <style type="text/css">
+  /* Syntax-Markierung */
+
+  pre {
+      /*background-color: #FDF6E3;*/
+      font-family: "LettrGoth12 BT", monospace;
+      font-size: 1.0em;
+      line-height: 1.1em;
+  }
+
+  .sourceCode {
+      font-family: "LettrGoth12 BT", monospace;
+      font-size: 1.0em;
+      line-height: 1.1em;
+  }
+
+  @media print {
+     pre {
+         font-size: 9pt;
+         line-height: 12pt;
+     }
+
+     .sourceCode {
+         font-size: 9pt;
+         line-height: 12pt;
+     }
+
+     tr.sourceCode {
+        border: 1px solid lightgray;
+     }
+
+  }
+
+  .sourceCode tr:nth-of-type(odd) {
+     background-color: transparent;
+  }
+
+  /* KeyWordTok */
+  .sourceCode .kw { color: #268BD2; }
+  /* DataTypeTok */
+  .sourceCode .dt { color: #268BD2; }
+
+  /* DecValTok (decimal value), BaseNTok, FloatTok
+  .sourceCode .dv, .sourceCode .bn, .sourceCode .fl { color: #D33682; }
+  /* CharTok */
+  .sourceCode .ch { color: #DC322F; }
+  /* StringTok */
+  .sourceCode .st { color: #2AA198; }
+  /* CommentTok */
+  .sourceCode .co { color: #93A1A1; }
+  /* OtherTok */
+  .sourceCode .ot { color: #A57800; }
+  /* AlertTok */
+  .sourceCode .al { color: #CB4B16; font-weight: bold; }
+  /* FunctionTok */
+  .sourceCode .fu { color: #268BD2; }
+  /* RegionMarkerTok */
+  .sourceCode .re { }
+
+  /* EOF */
+  </style>
+  <link rel="stylesheet" href="doc1.css" />
+</head>
+<body>
+<p class="tl-content">
+Abousobie, Youssef, 1312001. 1<br/>Iliev, Ivaylo, 1287983. 2
+</p>
+<p class="tm-content">
+Software Engineering SS 2021<br/>Praktikum Termin<br/>Dokumentation Aufgabe 2
+</p>
+<p class="tr-content">
+Dateiname<br/>rev. 1, ab 0 / Datum der Version 11.05.2021<br/><span class="tr-page"></span>
+</p> 
+<h1 class="unnumbered clDocPartHeader" id="teil-i-voruntersuchung">TEIL I: Voruntersuchung</h1>
+<h1 data-number="1" id="schätzung-des-aufwands"><span class="header-section-number">1</span> Schätzung des Aufwands</h1>
+<h2 data-number="1.1" id="zusammenstellung-und-klassifizierung-der-elementarprozesse"><span class="header-section-number">1.1</span> Zusammenstellung und Klassifizierung der Elementarprozesse</h2>
+<h3 data-number="1.1.1" id="ausgaben"><span class="header-section-number">1.1.1</span> Ausgaben</h3>
+<table style="width:94%;">
+<colgroup>
+<col style="width: 68%" />
+<col style="width: 26%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Name</td>
+<td>Klassifizierung</td>
+</tr>
+<tr class="even">
+<td>Statistiken zu Stellenangeboten</td>
+<td>niedrig</td>
+</tr>
+<tr class="odd">
+<td>Statistiken zu Stellengesuchen erzeugen</td>
+<td>niedrig</td>
+</tr>
+<tr class="even">
+<td>Eingang der Bewerbung wird durch eine Kontaktaufnahme per EMail bestätigt</td>
+<td>niedrig</td>
+</tr>
+<tr class="odd">
+<td>Infromierung der OE über die Ablauf jedes Stellenangebot</td>
+<td>niedrig</td>
+</tr>
+<tr class="even">
+<td>Inforomierung der OE über die Ablauf jedes Stellengesuche</td>
+<td>niedrig</td>
+</tr>
+<tr class="odd">
+<td>Übergabe der Bewerbung an den ZPM</td>
+<td>mittel</td>
+</tr>
+<tr class="even">
+<td>Übergabe der initiative Bewerbung an den ZPM</td>
+<td>mittel</td>
+</tr>
+<tr class="odd">
+<td>Benachrichtigung der Bewerber, dass die Bewerbung an der OE geleitet wird</td>
+<td>niedrig</td>
+</tr>
+<tr class="even">
+<td>Übergabe der Bewerbung an den OE</td>
+<td>mittel</td>
+</tr>
+<tr class="odd">
+<td>Übergabe der initiative Bewerbung an den OE</td>
+<td>mittel</td>
+</tr>
+<tr class="even">
+<td>ZPM weist die Bewerbung zurück mit einer entsprechenden Benachrichtigung an den Bewerber</td>
+<td>niedrig</td>
+</tr>
+<tr class="odd">
+<td>Einladung von OE</td>
+<td>niedrig</td>
+</tr>
+<tr class="even">
+<td>bei Nichteignung wird dies per Benachrichtigung mitgeteilt</td>
+<td>niedrig</td>
+</tr>
+<tr class="odd">
+<td>bei allen Benachrichtigungen wird auch das ZPM informiert</td>
+<td>niedrig</td>
+</tr>
+<tr class="even">
+<td>wenn die Bewerbung durch die OE erfolgreich abgeschlossen wird, informiert die OE das ZPM</td>
+<td>niedrig</td>
+</tr>
+<tr class="odd">
+<td>das ZPM bietet der Person, die sich bewirbt, den Arbeitsplatzwechsel an</td>
+<td>niedrig</td>
+</tr>
+</tbody>
+</table>
+<h3 data-number="1.1.2" id="abfragen"><span class="header-section-number">1.1.2</span> Abfragen</h3>
+<table style="width:94%;">
+<colgroup>
+<col style="width: 68%" />
+<col style="width: 26%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Name</td>
+<td>Klassifizierung</td>
+</tr>
+<tr class="even">
+<td>Stellengesuche recherchieren</td>
+<td>mittel</td>
+</tr>
+<tr class="odd">
+<td>Stellenangebote recherchieren</td>
+<td>mittel</td>
+</tr>
+<tr class="even">
+<td>Bewerbungen recherchieren</td>
+<td>mittel</td>
+</tr>
+<tr class="odd">
+<td>ZPM prüft/recherchiert für welche OE die initiative Bewerbung von Bedeutung sein könnte</td>
+<td>mittel</td>
+</tr>
+</tbody>
+</table>
+<h3 data-number="1.1.3" id="eingaben"><span class="header-section-number">1.1.3</span> Eingaben</h3>
+<table style="width:94%;">
+<colgroup>
+<col style="width: 68%" />
+<col style="width: 26%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Name</td>
+<td>Klassifizierung</td>
+</tr>
+<tr class="even">
+<td>Mitarbeiter kann Stellengesuche einstellen</td>
+<td>mittel</td>
+</tr>
+<tr class="odd">
+<td>Mitarbeiter kann Stellengesuche bearbeiten</td>
+<td>mittel</td>
+</tr>
+<tr class="even">
+<td>Mitarbeiter kann Stellengesuche entfernen</td>
+<td>mittel</td>
+</tr>
+<tr class="odd">
+<td>Bewerbung Eingeben</td>
+<td>mittel</td>
+</tr>
+<tr class="even">
+<td>Bestätigung der Arbeitswechselangebot</td>
+<td>niedrig</td>
+</tr>
+<tr class="odd">
+<td>Ablenhung der Arbeitswechselangebot</td>
+<td>niedrig</td>
+</tr>
+<tr class="even">
+<td>Stellenangebot einstellen von OE</td>
+<td>mittel</td>
+</tr>
+<tr class="odd">
+<td>Stellenangebot bearbeiten von OE</td>
+<td>mittel</td>
+</tr>
+<tr class="even">
+<td>Stellenangebot entfernen von OE</td>
+<td>mittel</td>
+</tr>
+<tr class="odd">
+<td>nach Ablauf der Frist werden die Angebote automatisch entfernt</td>
+<td>mittel</td>
+</tr>
+<tr class="even">
+<td>nach Ablauf der Frist werden die Gesuche automatisch entfernt</td>
+<td>mittel</td>
+</tr>
+<tr class="odd">
+<td>Mitarbeiter können Initiative Bewerbung einreichen</td>
+<td>mittel</td>
+</tr>
+<tr class="even">
+<td>passenden Arbeitsfeldern ermittelt für initiative Bewerbung</td>
+<td>mittel</td>
+</tr>
+<tr class="odd">
+<td>erzeugt die ZPM Initiativausschreibungen</td>
+<td>niedrig</td>
+</tr>
+</tbody>
+</table>
+<h2 data-number="1.2" id="daten"><span class="header-section-number">1.2</span> Daten</h2>
+<p>Benennen Sie Datenbestände und beschreiben Sie diese mit dem “Data-Dictionary”-Ansatz.</p>
+<h3 data-number="1.2.1" id="interne-datenbestände"><span class="header-section-number">1.2.1</span> Interne Datenbestände</h3>
+<p>1.Stellenangebote::=Standort/OE + #Identfikationsnummer + Arbeitsfeld + Fachlicher Ansprechpartner + Erforderliche Abschlüsse + Erforderliche besondere Qualifikationen + Beschäftigungsumfang + tarifliche Vergütung + befristete Beschäftigung + Stellenbesetzung + Ablauf Bewerbungsfrist;</p>
+<p>Standort/OE ::= string;</p>
+<p>Identfikationsnummer ::= number;</p>
+<p>Arbeitsfeld ::= string + <em>Stellenbeschreibung</em> boolean; <em>Führungsaufgabe</em></p>
+<p>Fachlicher Ansprechpartner ::= string + <em>Name</em> string + <em>Funktion</em> string; <em>EMail-Adresse</em></p>
+<p>Erforderliche Abschlüsse ::= {string}; <em>Abitur, Ausbildung, Bachelor, Master etc.</em></p>
+<p>Erforderliche Qualifikationen::= {string}; <em>Besondere Nachweise und Zertifikate</em></p>
+<p>Beschäftigungsumfang::= [ number <em>Prozent</em> | number <em>Stunden</em> ];</p>
+<p>tarifliche Vergütung::= [ number <em>ja =&gt; Tarifgruppe</em> | string <em>Nein =&gt; Außertarifliche Angaben</em> ];</p>
+<p>befristete Beschäftigung ::= date + <em>Von</em> date; <em>Bis</em></p>
+<p>Stellenbesetzung_zum::= date;</p>
+<p>Ablauf Bewerbungsfrist::= date;</p>
+<p>2.Bewerbungen::=Datum der Bewerbung + <span class="citation" data-cites="Identifikationsnummer">@Identifikationsnummer</span> + Initiativbewerbung + Name + Vorname + Wohnort + Kontaktdaten + aktuelle Tätigkeit + Arbeitsfeld + Anschreiben + Lebenslauf + Zeugnisse / Abschlüsse + spezielle Qualifikationen;</p>
+<pre><code>date + *Datum der Bewerbung
+number + *Identifikationsnummer*
+boolean + *Initiativbewerbung*
+string + *Name*
+string + *Vorname*
+string + *Wohnort*
+Kontaktdaten::=
+    number + *Telefonnummer*
+    string;  *EMail-Adresse*
+Telefon::=
+    [&#39;privat&#39;|&#39;dienstlich&#39;];
+
+aktuelle Tätigkeit::=
+    string + *Standort* 
+    string + *OE* 
+    string;  *Arbeitsfeld*
+string + *Anschreiben*  
+string + * Lebenslauf*
+string + *Zeugnisse / Abschlüsse*
+string; *Spezielle Qualifikationen*</code></pre>
+<p>3.Stellengesuche::= #Identifikationsnummer + #Personalnummer + Befristung<em>Maximum 2 Monate</em> + Datum + Name + Vorname + Wohnort + Kontaktdaten + aktuelle Tätigkeit + gewünschte Tätigkeit + Abschlüsse + spezielle Qualifikationen;</p>
+<pre><code>number + *Identifikationsnummer*
+number + *Personalnummer*
+date + *Befristung*
+date + *Datum*
+string + *Name*
+string + *Vorname*
+string + *Wohnort*
+Kontaktdaten::=
+    number + *Telefonnummer*
+    string;  *EMail-Adresse*
+Telefon::=
+    [&#39;privat&#39;|&#39;dienstlich&#39;];</code></pre>
+<p>aktuelle Tätigkeit::={Standort}+{OE}+{Arbeitsfeld}+{Beschäftigungsumfang}+{tarifliche Vergütung} + befristete Beschäftigung string + <em>Standort</em> string + <em>OE</em> string + <em>Arbeitsfeld</em> number + <em>Beschäftigungsumfang</em> string + <em>Tarifliche Vergütung</em> date; <em>Befristete Beschäftigung</em></p>
+<p>gewünschte Tätigkeit::={Standort}+{OE}+{Arbeitsfeld}+{Beschäftigungsumfang}+{tarifliche Vergütung} +Beginn der Tätigkeit +Besondere Stellenwünsche string + <em>Standort</em> string + <em>OE</em> string + <em>Arbeitsfeld</em> number + <em>Beschäftigungsumfang</em> string + <em>Tarifliche Vergütung</em> string + <em>Abschlüsse</em> string; <em>Spezielle Qualifikationen</em></p>
+<h3 data-number="1.2.2" id="referenzdaten"><span class="header-section-number">1.2.2</span> Referenzdaten</h3>
+<h2 data-number="1.3" id="komplexität-berechnung-der-unbewerteten-fp"><span class="header-section-number">1.3</span> Komplexität / Berechnung der unbewerteten FP</h2>
+<p>Wenden Sie die Zählregeln an und ermitteln Sie anhand der Tabelle die unbewertete Summe der FP.</p>
+<table style="width:97%;">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 12%" />
+<col style="width: 23%" />
+<col style="width: 18%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Kategorie</th>
+<th>Anzahl</th>
+<th>Klassifzierung</th>
+<th>Gewichtung</th>
+<th>Wert</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Eingaben</td>
+<td>3</td>
+<td>einfach</td>
+<td>3</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td>Eingaben</td>
+<td>11</td>
+<td>mittel</td>
+<td>4</td>
+<td>44</td>
+</tr>
+<tr class="odd">
+<td>Eingaben</td>
+<td>0</td>
+<td>komplex</td>
+<td>6</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Ausgaben</td>
+<td>12</td>
+<td>einfach</td>
+<td>4</td>
+<td>48</td>
+</tr>
+<tr class="odd">
+<td>Ausgaben</td>
+<td>4</td>
+<td>mittel</td>
+<td>5</td>
+<td>20</td>
+</tr>
+<tr class="even">
+<td>Ausgaben</td>
+<td>0</td>
+<td>komplex</td>
+<td>7</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Abfragen</td>
+<td>0</td>
+<td>einfach</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Abfragen</td>
+<td>4</td>
+<td>mittel</td>
+<td>4</td>
+<td>16</td>
+</tr>
+<tr class="odd">
+<td>Abfragen</td>
+<td>0</td>
+<td>komplex</td>
+<td>6</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Interne Datenbestände</td>
+<td>2</td>
+<td>einfach</td>
+<td>7</td>
+<td>14</td>
+</tr>
+<tr class="odd">
+<td>Interne Datenbestände</td>
+<td>1</td>
+<td>mittel</td>
+<td>10</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td>Interne Datenbestände</td>
+<td>0</td>
+<td>komplex</td>
+<td>15</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Referenzdaten</td>
+<td>0</td>
+<td>einfach</td>
+<td>5</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Referenzdaten</td>
+<td>0</td>
+<td>mittel</td>
+<td>7</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Referenzdaten</td>
+<td>0</td>
+<td>komplex</td>
+<td>10</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Summe</td>
+<td></td>
+<td></td>
+<td></td>
+<td>161</td>
+</tr>
+</tbody>
+</table>
+<h2 data-number="1.4" id="berechnung-der-bewerteten-fp"><span class="header-section-number">1.4</span> Berechnung der bewerteten FP</h2>
+<h3 data-number="1.4.1" id="merkmale"><span class="header-section-number">1.4.1</span> Merkmale</h3>
+<p>(Standardwert 5, d.h. ohne Bedeutung / für alle Merkmale einen Wert zwischen 0 und 10 angeben)</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 9%" />
+<col style="width: 41%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Merkmal</td>
+<td>Wert</td>
+<td><pre><code>Begründung</code></pre></td>
+</tr>
+<tr class="even">
+<td>(M1) Komplexe Verarbeitung</td>
+<td>5</td>
+<td>Die Funktionalität der Application ist nicht sehr hoch.Wegen der Größe des Unternehmens und die Anzahl der OEs</td>
+</tr>
+<tr class="odd">
+<td>(M2) Begrenzte Kapazität</td>
+<td>9</td>
+<td>Die Kapazität muss nicht begrenzt werden.</td>
+</tr>
+<tr class="even">
+<td>(M3) Transaktionsrate</td>
+<td>8</td>
+<td>Die Anwendung muss von viele Benutzer gleichzeitig benutzt werden.</td>
+</tr>
+<tr class="odd">
+<td>(M4) Benutzerfreundlichkeit</td>
+<td>10</td>
+<td>Das ist einer der wichtigste Aspekte. Die DSB muss leicht von jedem Mitarbeiter in der Unternehmen genutzt werden</td>
+</tr>
+<tr class="even">
+<td>(M5) Flexibilität</td>
+<td>7</td>
+<td>Die Application muss auf verschidene Geräte wie Computern oder Händys verwendbar werden</td>
+</tr>
+<tr class="odd">
+<td>(M6) verteilte Verarbeitung (Aufteilung der Anwendung)</td>
+<td>10</td>
+<td>Die verschieden Zielgruppen haben verschidene Rechte bei dem Zugriff der DSB, deswegen ist der Aufwand hoch.</td>
+</tr>
+<tr class="even">
+<td>(M7) Datenkommunikation (mit Nachbarsystemen)</td>
+<td>10</td>
+<td>Die DSB muss von verschidene Systeme und Zielgruppen verwendet werden</td>
+</tr>
+<tr class="odd">
+<td>(M8) Portierbarkeit</td>
+<td>1</td>
+<td>Die Application ist nur von den Server des Unternehmens abhängig und die Portierbarkeit ist gering.</td>
+</tr>
+<tr class="even">
+<td>(M9) Änderungsfreundlichkeit (Konstruktion auf A. hin)</td>
+<td>5</td>
+<td>Die Funktionalität der Anwendung ist nich sehr kompliziert.Es ist möglich Aktualisierungen des Systems zu machen, aber keine grunsetzlichen Veränderungen werden gemacht.</td>
+</tr>
+<tr class="odd">
+<td>(M10) Wiederverwendbarkeit</td>
+<td>4</td>
+<td>Die Anwendung muss immer zur Verfügung stehen. Trotzdem liegt der Fokus der DSB nicht im Wiederverwendbarkeit</td>
+</tr>
+<tr class="even">
+<td>TDI = Summe der Werte</td>
+<td>69</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 data-number="1.4.2" id="vaf-bewertete-function-points"><span class="header-section-number">1.4.2</span> VAF / bewertete Function-Points</h3>
+<p>VAF berechnen:</p>
+<ul>
+<li>VAF = (TDI * 0.01) + 0.5 VAF=(69 *0.01)+0.5= 1,19</li>
+</ul>
+<p>bewertete Function-Points:</p>
+<ul>
+<li>bFP = VAF * FP bfP=161 * 1,19= 191,59</li>
+</ul>
+<h2 data-number="1.5" id="ermittlung-personalaufwand-bearbeitungsdauer-kosten"><span class="header-section-number">1.5</span> Ermittlung Personalaufwand, Bearbeitungsdauer, Kosten</h2>
+<p>Zur Abschätzung des Entwicklungsaufwands in Personenmonaten gibt es in der Literatur u.a. folgende Formel:</p>
+<ul>
+<li>Aufwand (Personenmonate) = bFP<sup>1.4</sup> / 150 =&gt; 191,59 <sup>1.4</sup> / 150 = 10,45</li>
+</ul>
+<p>1.Bearbeitungszeitraum</p>
+<p>Wasserfallmodell:</p>
+<p>Anforderung:1 Monate</p>
+<p>Entwurf:5 Monate</p>
+<p>Implementation:4 Monate</p>
+<p>Überprüfung: 6 Monate</p>
+<p>Wartung: 2 Monate</p>
+<p>Die Überprüfung und der Entwurf werden die zeitaufwendigsten Phasen während der Bearbeitung sein. Der Grund dafür ist der große Aufwand bei der Benutzerfreunldichekeit, Datenkommunikation und verteilte Verarbeitung, was zur langsame Bearbeitung von viele Daten auf einmal führen kann. Bei dem Entwurf braucht man gute und effiziente Planung zu erstellen für den Datenaustausch und die Kommunikation zwischen DSB ,ZPM und OE. Falls Der Entwurf gut ist , werden die IT-Ingenieure nicht so viel Zeit bei der Implementation verschwenden , weil die Funktionalität der Stellenbörse nicht so kompliziert ist. Die geringste Zeitumfang haben die Anforderungen und die Wartung.</p>
+<p>2.Kosten Kosten=Anzahl der OE * 3 Techniker jeder mit Gehalt von 5000 Euro.</p>
+<p>Erstellung der Application:40 000 - 100 000 Euro. Der Grund dafür ist die Größe des Unternehmens, die in verschiedenen Standorten verteilt ist.Außerdem existieren zahlreiche OE pro Standort, was zur größere Datenbanken und langsame bearbeitung der Information führt. Die Komplexität der Funktionalität der Stellenbörse kann man als niedrig Bezeichnet.Deswegen ist der obere Grenzung für den Budget 100 000 Euro. Die meisten Kosten werden für die Erstellung der Ablauf Beziehung zwischen DBS,ZPM und OE in der verschiedenenen Standorten, was zur aufwendige Bearbeitung der Datenbanken führt.</p>
+<p>Gemeinsame Kosten:120 000 - 200 000 Euro.</p>
+<h1 class="unnumbered clDocPartHeader" id="teil-ii-anforderungsanalyse">TEIL II: Anforderungsanalyse</h1>
+<h1 data-number="2" id="zielbestimmung"><span class="header-section-number">2</span> Zielbestimmung</h1>
+<p>Ziel der Software ist es, die Erleichterung nicht nur für die Organisationseinheiten , sondern auch für die in der Untenhemen beschäftigte Mitarbeieter bei einem Arbeitsplatzwechsel. Für das Unternehmen bietet die Application die Möglichkeit nicht mit den selben Mitarbeiter ,deren Qualifizierungen schön bekannt sind, wiederzuarebiten. Auf diese Weise werden die Kosten und die Zeitaufwand bei der Suche nach neue Mitarbeiter verringert.Aus der Seite der Mitarbeiter bietet die digitale Stellenbörse auf die gewünschte Position in der Unternehmen zu arbeiten, was zur Zeitaufwand bei der einer Suche außer der Firma sparren kann.</p>
+<h1 data-number="3" id="produkt-einsatz"><span class="header-section-number">3</span> Produkt-Einsatz</h1>
+<h2 data-number="3.1" id="anwendungsbereiche"><span class="header-section-number">3.1</span> Anwendungsbereiche</h2>
+<p>Der in den Untenhemen beschäftigten Mitarbeiter kann sich , um eine Arbeitsstellen bewerben/initiativ bewereben und nach Stellengesuche recherchieren.</p>
+<p>Die digitale Stellenbörse steht auch zur Verfügung der zentralen Personalmanagement die einegehende Bewebungen zu Überprüfen.</p>
+<p>Die Organisationseinheiten stellen Angeboten in der digitalen Stellenbörse ein. Sie können auch Benachrichtigungen bei einer Eignung oder Nichteignung einer Bewerbung zu den ZPM senden.</p>
+<h2 data-number="3.2" id="zielgruppen"><span class="header-section-number">3.2</span> Zielgruppen</h2>
+<p>Die Zeilgruppen sind jeder in dem Unternehemen beschäftigten Mitarbeiter und die Organisationseinheiten.Die Akteure des Systems bestehen aus dem Zielgruppen und den zentralen Personalmanagament.</p>
+<p>Für die Organisationseinheiten bietet die digitale Stellenbörse die Möglichkeit nach Mitarbeiter zu suchen ,indem sie Stellenangeboten in das Application eingeben.</p>
+<p>Mit der Hilfe des Systems können die in der Unternehmen beschäftigte Mitarbeiter ihren Arbeitsplatzwechsel ermöglichen, indem sie nicht in einem anderen Unternehemen suchen müssen.</p>
+<p>Die zentrale Personalmanagament führt zu einer Überprüfung der Bewerbung im Bezug darauf, ob eine Bewerbung den Kriterien entspricht und benachrichtigt der Bewerber mit dem Zustand der Bewerbung.</p>
+<h2 data-number="3.3" id="betriebsbedingungen"><span class="header-section-number">3.3</span> Betriebsbedingungen</h2>
+<p>Die Software muss zur Verfügung sein und kann viele Bewerbungen auf einmal zu bearbeiten/aufnehmen, indem das Datenbanksystem die benötige Einstellungen und Speicherkapazität hat. Der Grund dafür ist die Größe des Unternehmens,das in verschidenen Standorten verteilt ist.</p>
+<p>Nicht alle in dem Unternehmen beschäftigten Mitarbiter haben zu jeder Information Zugriff. Zum Beispiel nur ZPM beschäftigten Personen können Statistiken zu Stellenangeboten und Stellengesuchen erzeugen. Das bedeutet ,dass für jede Nutzergruppe eine benutzerfreundliche Application-Software mit dem bestimmten Zugriffsrechte vorgesehen wird.</p>
+<h1 data-number="4" id="produkt-umgebung"><span class="header-section-number">4</span> Produkt-Umgebung</h1>
+<h2 data-number="4.1" id="software"><span class="header-section-number">4.1</span> Software</h2>
+<p>Die Software muss eine benutzerfreundlichen Frontend für die Nutzer haben, damit die verschiedene Nutzergruppen leichtere Zugriff auf die Funktionalitäten der digitalen Stellenbörse haben können.Die Application muss nicht nur auf einem Computer, sondern auch auf einem Handy funktionieren. Alle Nutzern des digitalen Stellenbörse müssen ein Account und Zugriff auf dem Intranet des Unternehmens besitzen. Für die Realisierung wird eine NoSQL-Datenbank, was die im Vergleich zu den SQL-Datenbank größere Performance,Skalierbarkeit und Flexibilität bietet.</p>
+<h2 data-number="4.2" id="hardware"><span class="header-section-number">4.2</span> Hardware</h2>
+<p>Zum Speicherung der verschiedene Informationsarten muss ein Datenbankserver vorhanden sein. Datenbankserver ist ein zu dem Netzwerk des Unternehmens vernetzte Computer , das für die Speicherung von Datenbanken und das Abrufen von Daten aus der Datenbank vorgesehen ist. Für jeden Standort des Untenehmens werden mindestens ein Server ist vorgesehen.Die Gründe dafür sind sowohl die Größe des Untenehmens als auch die Verwendung von NoSQL-Datenbank ,was mehere Datenbaken benötigt.Jeder von der Nutzergruppen muss ein PC zur Verfügung haben, der nicht nur zu dem Intranet des Untenhemens angeschlossen ist, sondern auch genug Leistungsfähigkeiten für die Ausführung der veschiedene Funktionalitäten hat.</p>
+<h1 data-number="5" id="funktionale-produkt-anforderungen"><span class="header-section-number">5</span> Funktionale Produkt-Anforderungen</h1>
+<h2 data-number="5.1" id="anwendungsfälle"><span class="header-section-number">5.1</span> Anwendungsfälle</h2>
+<figure>
+<img src="C:/Users/ivayl/Desktop/4.Semester/SWE/Praktikum_2/Use_case(1.4).jpg?raw=true" title="Title" alt="Alt text" /><figcaption aria-hidden="true">Alt text</figcaption>
+</figure>
+<p>   </p>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 77%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Bezeichnung</th>
+<th>Stellenangebote recherchieren</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ziel</td>
+<td>Aussuche nach Stellenangebote</td>
+</tr>
+<tr class="even">
+<td>Akteure</td>
+<td>In dem Unternehmen beschäftigte Person, ZPM</td>
+</tr>
+<tr class="odd">
+<td>Auslösendes Ereignis</td>
+<td>Suchen nach Stellenangebote von Mitarbeiter in der Untenehmen wegen Wunsch nach Arbeitsplatzwechsel</td>
+</tr>
+<tr class="even">
+<td>Vorbedingung</td>
+<td>Stellenangebote müssen schon von OE in der DSB eingestellt werden</td>
+</tr>
+<tr class="odd">
+<td>Nachbedingung</td>
+<td>keine</td>
+</tr>
+<tr class="even">
+<td>Kategorie</td>
+<td>optional</td>
+</tr>
+<tr class="odd">
+<td>Beschreibung</td>
+<td>In dem Unternehmen beschäftigte Person sucht nach Stellenangebot</td>
+</tr>
+</tbody>
+</table>
+<p>   </p>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 77%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Bezeichnung</th>
+<th>Bewerben/initiative Bewerbung einreichen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ziel</td>
+<td>Eine Bewerbung in DSB schicken</td>
+</tr>
+<tr class="even">
+<td>Akteure</td>
+<td>In dem Unternehmen beschäftigte Person</td>
+</tr>
+<tr class="odd">
+<td>Auslösendes Ereignis</td>
+<td>Bewerber veruscht seine Arbeitsposition in dem Unternehmen zu wechseln durch Bewerbung für bestimmte Stellenangebot in der digitalen Stellenbörse</td>
+</tr>
+<tr class="even">
+<td>Vorbedingung</td>
+<td>Stellenangebot für die bestimmte Arbeitsplatz muss schon in DSB eingestellt sein</td>
+</tr>
+<tr class="odd">
+<td>Nachbedingung</td>
+<td>Anzahl der Bewerbung in der digitale Stellenbörße nimmt zu.</td>
+</tr>
+<tr class="even">
+<td>Kategorie</td>
+<td>primär</td>
+</tr>
+<tr class="odd">
+<td>Beschreibung</td>
+<td>In dem Unternehmen beschäftigte Person schickt eine Bewerbung in der DSB</td>
+</tr>
+</tbody>
+</table>
+<p>   </p>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 77%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Bezeichnung</th>
+<th>Stellengesuche recherchieren</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ziel</td>
+<td>Suche von Stellengesuche</td>
+</tr>
+<tr class="even">
+<td>Akteure</td>
+<td>In dem Unternehmen beschäftigte Person</td>
+</tr>
+<tr class="odd">
+<td>Auslösendes Ereignis</td>
+<td>Ausgabe den Stellengesuche ,die den Kriterien der Suchende entsprechen</td>
+</tr>
+<tr class="even">
+<td>Vorbedingung</td>
+<td>Stellenangebote müssen schön von OE in der DSB eingestellt werden</td>
+</tr>
+<tr class="odd">
+<td>Nachbedingung</td>
+<td>keine</td>
+</tr>
+<tr class="even">
+<td>Kategorie</td>
+<td>sekundär</td>
+</tr>
+<tr class="odd">
+<td>Beschreibung</td>
+<td>In der Unternehmen beschäftigte Person such nach eine Stellengesuche in der DSB</td>
+</tr>
+</tbody>
+</table>
+<p>   </p>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 77%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Bezeichnung</th>
+<th>formalen Prüfung leiten</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ziel</td>
+<td>Betsätigung, ob eine Bewerbung passend zu bestimmtem Stellenangebot ist.</td>
+</tr>
+<tr class="even">
+<td>Akteure</td>
+<td>ZPM,OE</td>
+</tr>
+<tr class="odd">
+<td>Auslösendes Ereignis</td>
+<td>Die Bestätigung für den Eingang der Bewerbung bei ZPM</td>
+</tr>
+<tr class="even">
+<td>Vorbedingung</td>
+<td>Eine Bewerbung mussen schön in der DSB geschickt werden.</td>
+</tr>
+<tr class="odd">
+<td>Nachbedingung</td>
+<td>Anzahl der abgeschlossene Bewerbungen in der digitalen Stellenbörße steigt.</td>
+</tr>
+<tr class="even">
+<td>Kategorie</td>
+<td>primär</td>
+</tr>
+<tr class="odd">
+<td>Beschreibung</td>
+<td>Die ZPM und/oder OE überprüft ob eine Bewerbung passend zu den Stellenangebot ist</td>
+</tr>
+</tbody>
+</table>
+<p>   </p>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 77%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Bezeichnung</th>
+<th>Benachritigung schicken</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ziel</td>
+<td>Bewerber,OE oder ZPM wird für den Status einer Bewerbung informiert</td>
+</tr>
+<tr class="even">
+<td>Akteure</td>
+<td>ZPM,OE,in der Untenhemen beschäftigte Person</td>
+</tr>
+<tr class="odd">
+<td>Auslösendes Ereignis</td>
+<td>Aktualisierung über Status einer Bewerbung</td>
+</tr>
+<tr class="even">
+<td>Vorbedingung</td>
+<td>Eine Bewerbung mussen schön in der DSB geschickt</td>
+</tr>
+<tr class="odd">
+<td>Nachbedingung</td>
+<td>keine</td>
+</tr>
+<tr class="even">
+<td>Kategorie</td>
+<td>primär</td>
+</tr>
+<tr class="odd">
+<td>Beschreibung</td>
+<td>Nach jede Aktualisierung über Status einer Bewerbung(z.B der Eingang oder Einladung) werden Benachrichtungen zwischen die Akteure ausgetauscht</td>
+</tr>
+</tbody>
+</table>
+<p>   </p>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 77%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Bezeichnung</th>
+<th>Stelleneingebote verwalten</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ziel</td>
+<td>Stellenangebot wird eingestellt ,bearbeitet oder entfernt</td>
+</tr>
+<tr class="even">
+<td>Akteure</td>
+<td>OE</td>
+</tr>
+<tr class="odd">
+<td>Auslösendes Ereignis</td>
+<td>OE kann Status und Anzahl der Stellenangeboten beeinflussen</td>
+</tr>
+<tr class="even">
+<td>Vorbedingung</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Nachbedingung</td>
+<td>Die Anzahl der Stellenangeboten in DSB nimmt zu/ab oder Status wird aktualisiert</td>
+</tr>
+<tr class="even">
+<td>Kategorie</td>
+<td>primär</td>
+</tr>
+<tr class="odd">
+<td>Beschreibung</td>
+<td>Verwaltung der Setllenangebote im Bezug auf die Kriterien und Interessen der Organisationseinheit</td>
+</tr>
+</tbody>
+</table>
+<p>   </p>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 77%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Bezeichnung</th>
+<th>Statistiken zu Stellenangeboten und Stellengesuchen zugreifen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ziel</td>
+<td>Erzeugung von graphische Darstellungen der Stellenangeboten und Stellengesuchen</td>
+</tr>
+<tr class="even">
+<td>Akteure</td>
+<td>ZPM</td>
+</tr>
+<tr class="odd">
+<td>Auslösendes Ereignis</td>
+<td>Personen,die im ZPM arbeiten,suchen nach graphische Darstellungen der Stellenangeboten und Stellengesuche sehen.</td>
+</tr>
+<tr class="even">
+<td>Vorbedingung</td>
+<td>Stellenangebote und Stellengesuche müssen schön in DSB vorhanden sein</td>
+</tr>
+<tr class="odd">
+<td>Nachbedingung</td>
+<td>keine</td>
+</tr>
+<tr class="even">
+<td>Kategorie</td>
+<td>sekundär</td>
+</tr>
+<tr class="odd">
+<td>Beschreibung</td>
+<td>Statistiken und graphische Darstellung zur Veranschaulichung von der Stellenangeboten und Stellengesuchen in Unternehme der Ergebnisse werden erzeugt.</td>
+</tr>
+</tbody>
+</table>
+<p>   </p>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 77%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Bezeichnung</th>
+<th>Bewerbungen recherchieren</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ziel</td>
+<td>Suchen von Bewerbungen</td>
+</tr>
+<tr class="even">
+<td>Akteure</td>
+<td>ZPM</td>
+</tr>
+<tr class="odd">
+<td>Auslösendes Ereignis</td>
+<td>Information über die Zustand von den Bewerbungen in der DSB kriegen</td>
+</tr>
+<tr class="even">
+<td>Vorbedingung</td>
+<td>Bewerbungen müssen schön im DSB vorhanden sein</td>
+</tr>
+<tr class="odd">
+<td>Nachbedingung</td>
+<td>keine</td>
+</tr>
+<tr class="even">
+<td>Kategorie</td>
+<td>primär</td>
+</tr>
+<tr class="odd">
+<td>Beschreibung</td>
+<td>Mitarbeiter der ZPM informieren sich über die Zustand der verschieden Bewerbungen</td>
+</tr>
+</tbody>
+</table>
+<p>   </p>
+<h2 data-number="5.2" id="sonstige-anforderungen"><span class="header-section-number">5.2</span> Sonstige Anforderungen</h2>
+<p>Nach bestimmte Zeit müssen die Stellenangeboten und die Stellengesuche automatisch aus der digitalen Stellenbörse entfernt werden.</p>
+<p>Alle in dem Untenehmen beschäftigten Personen müssen Zugriff auf die digitale Stellenbörse haben.</p>
+</body>
+</html>
